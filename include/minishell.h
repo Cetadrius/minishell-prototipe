@@ -56,7 +56,11 @@ typedef enum s_cat
 	FLAG,
 	FILES,
 	OTHER,
-	COMMENT
+	COMMENT,
+	REDIR_OUT,
+	REDIR_IN,
+	REDIR_APPEND,
+	FILENAME
 }	t_cat;
 
 
@@ -191,6 +195,7 @@ bool	open_pipe(const char *input, int i);
 void	free_tokens(t_token *tokens);
 void	free_args(char **args);
 int		check_token_sequence(const char *input);
+int		apply_lonely_redirs(t_token *tokens, t_shell *shell);
 
 
 // BUILT-INS PROTOTYPES
