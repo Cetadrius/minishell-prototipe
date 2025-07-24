@@ -8,40 +8,39 @@ int	ft_exit(t_token **token, t_shell *type)
 
 	arg = NULL;
 	nbr_args = token_counter(*token);
-	//ft_putstr_fd("exit\n", STDOUT_FILENO);
 	if (nbr_args > 1)
 	{
 		sus_arg = (*token)->next->value;
-		if(is_valid_exit_arg(sus_arg))
+		if (is_valid_exit_arg(sus_arg))
 			arg = sus_arg;
 		else
 			arg = NULL;
 	}
 	if (nbr_args == 2 && arg && ft_strcmp(arg, "--") == 0)
-			ft_kill(type, *token, 0);
+		ft_kill(type, *token, 0);
 	return (exit_args(token, type, nbr_args, arg));
 }
 
 int	exit_args(t_token **token, t_shell *type, int nbr_args, char *arg)
 {
 	if (nbr_args == 1)
-        ft_kill(type, *token, 0);
-    if (arg == NULL || !ft_is_nbr(arg))
-    {
-        if (arg)
-            ft_printf_fd(2, "exit1: %s: numeric argument required\n", arg);
-        else
-            ft_printf_fd(2, "%s numeric argument required\n");
-        ft_kill(type, *token, 2);
-    }
-    if (nbr_args > 2)
-    {
-        ft_putstr_fd(" too many arguments\n", STDERR_FILENO);
-        type->exit_code = 1;
-        return 1;
-    }
-    ft_exit2(type, *token, nbr_args, arg);
-	return (0);	
+		ft_kill(type, *token, 0);
+	if (arg == NULL || !ft_is_nbr(arg))
+	{
+		if (arg)
+			ft_printf_fd(2, "exit1: %s: numeric argument required\n", arg);
+		else
+			ft_printf_fd(2, "%s numeric argument required\n");
+		ft_kill(type, *token, 2);
+	}
+	if (nbr_args > 2)
+	{
+		ft_putstr_fd(" too many arguments\n", STDERR_FILENO);
+		type->exit_code = 1;
+		return (1);
+	}
+	ft_exit2(type, *token, nbr_args, arg);
+	return (0);
 }
 
 int	ft_exit2(t_shell *type, t_token *tokens, int nbr_args, char *arg)

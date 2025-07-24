@@ -21,5 +21,5 @@ int	is_valid_exit_arg(char *arg)
 		return (0);
 	if (ft_strcmp(arg, "|") == 0)
 		return (0);
-	return 1;
+	return (1);
 }
